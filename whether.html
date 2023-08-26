@@ -16,6 +16,9 @@
             <input type="text" placeholder="enter city name" spellcheck="false">
             <button><i class="fa fa-search"></i></button>
         </div>
+        <div class="error">
+            <p>invalied city name</p>
+        </div>
         <div class="wether">
             <img src="images/rain.png" alt="" class="weather-icon">
             <h1 class="temp">22c</h1>
@@ -48,21 +51,61 @@
 </body>
 <script>
     const apikey="e3d8b94153da135d41692ed3e28cbf1d";
-    const apiurl="https://api.openweathermap.org/data/2.5/weather?units=metric&q=kannur";
-    async function check(){
-    const responce= await fetch(apiurl + `&appid=${apikey}`);
+    const apiurl="https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+    const searchbox=document.querySelector(".search input");
+    const searchbutton=document.querySelector(".search button");
+    const wetherIcon= document.querySelector(".weather-icon")
+
+
+    async function check(city){
+    const responce= await fetch(apiurl +city+ `&appid=${apikey}`);
+    if(responce.status== 404){
+        document.querySelector(".error").style.display= "none"
+    }else{
     var data =await responce.json();
     console.log(data);
     document.querySelector(".city").innerHTML=data.name;
     document.querySelector(".temp").innerHTML=data.main.temp;
     document.querySelector(".humidity").innerHTML=data.main.humidity;
     document.querySelector(".wind-speed").innerHTML=data.wind.speed;
+    if(data.weather[0].main=="Clouds"){
+        wetherIcon.src="images/clouds.png"
+
+    }
+    else if(data.weather[0].main=="Clear"){
+        wetherIcon.src="images/clear.png"
+
+    }
+    else if(data.weather[0].main=="Rain"){
+        wetherIcon.src="images/rain.png"
+
+    }
+    else if(data.weather[0].main=="Snow"){
+        wetherIcon.src="images/snow.png"
+
+    }
+    else if(data.weather[0].main=="Drizzle"){
+        wetherIcon.src="images/drizzle.png"
+
+    }
+    else if(data.weather[0].main=="Mist"){
+        wetherIcon.src="images/mist.png"
+
+    }
+}
+
 
     
 
 
     }
-    check()
+    searchbutton.addEventListener("click",()=>{
+        console.log("hi=",searchbox)
+        check(searchbox.value);
+
+        
+    })
 
 </script>
 
