@@ -49,11 +49,11 @@ body{
     width: 170px;
     margin-top: 30px;
 }
-.wether h1{
+.weather h1{
     font-size: 80px;
     font-weight: 500;
 }
-.wether h2{
+.weather h2{
     font-size: 45pxpx;
     font-weight: 400;
     margin-top: -10px;
@@ -76,5 +76,8 @@ body{
     margin-right: 10px;
 }
 .error{
+    display: none;
+}
+.weather{
     display: none;
 }
